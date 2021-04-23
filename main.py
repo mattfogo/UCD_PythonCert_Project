@@ -8,7 +8,7 @@ from datetime import datetime
 
 #import the datasets
 GWh = pd.read_csv("Historic GWh by Fuel.csv")
-GWh.set_index("Year").sort_index()
+GWh['Primary Energy'] = GWh['Primary Energy'].astype(int)
 print(GWh)
 
 #checking for Null values
@@ -49,6 +49,17 @@ Energy= Energy.merge(Renewables, on='Year')
 Energy = Energy.rename(columns={'Fuel Group':'Fuel Group_Renewables', 'Primary Energy':'Primary Energy_Renewables'})
 print(Energy.columns)
 
-Energy_1 = ['Year', 'Primary Energy_Oil', 'Primary Energy_Elec','Primary Energy_NatGas','Primary Energy_Waste',
-            'Primary Energy_Coal', 'Primary Energy_Peat','Primary Energy_Renewables']
+
+#graphing my results
+Energy['Year'] = Energy['Year'].astype(int)
+Years = Energy["Year"]
+Fuel = Energy['Primary Energy_Renewables']
+
+plt.scatter(Years, Energy['Primary Energy_Renewables'],color = 'green')
+plt.scatter(Years, Energy['Primary Energy_Elec'],color = 'blue')
+plt.scatter(Years, Energy['Primary Energy_Coal'],color = 'black')
+plt.xlabel('Years')
+plt.ylabel('GWh')
+plt.title('Energy Generation in Ireland since 1990')
+plt.show()
 
