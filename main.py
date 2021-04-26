@@ -52,6 +52,9 @@ Energy= Energy.merge(Renewables, on='Year')
 Energy = Energy.rename(columns={'Fuel Group':'Fuel Group_Renewables', 'Primary Energy':'Primary Energy_Renewables'})
 print(Energy.columns)
 
+Energy ['Total Energy'] = Energy ['Primary Energy_Oil'] + Energy ['Primary Energy_Elec'] + Energy ['Primary Energy_NatGas']
++ Energy ['Primary Energy_Waste'] + Energy ['Primary Energy_Coal'] + Energy ['Primary Energy_Renewables']
+
 #if
 x = Energy['Year'].min()
 print(x)
@@ -64,8 +67,14 @@ if x<=y:
 #graphing my results
 Energy['Year'] = Energy['Year'].astype(int)
 Years = Energy["Year"]
-Fuel = Energy['Primary Energy_Renewables']
+plt.scatter(Years, Energy['Total Energy'],color = 'Black', label= 'Total Energy')
+plt.xlabel('Years')
+plt.ylabel('GWh')
+plt.title('Energy Generation in Ireland since 1990')
+plt.legend()
+plt.show()
 
+#second graph
 plt.scatter(Years, Energy['Primary Energy_Renewables'],color = 'green', label= 'Renewable Energy')
 plt.scatter(Years, Energy['Primary Energy_NatGas'],color = 'red', label='Gas')
 plt.scatter(Years, Energy['Primary Energy_Coal'],color = 'black', label = 'Coal')
