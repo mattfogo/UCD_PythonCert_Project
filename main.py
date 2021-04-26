@@ -52,6 +52,14 @@ Energy= Energy.merge(Renewables, on='Year')
 Energy = Energy.rename(columns={'Fuel Group':'Fuel Group_Renewables', 'Primary Energy':'Primary Energy_Renewables'})
 print(Energy.columns)
 
+#if
+x = Energy['Year'].min()
+print(x)
+y = Energy['Year'].max()
+print(x)
+if x<=y:
+    z = x+1
+    print('The current value of "z" is',z)
 
 #graphing my results
 Energy['Year'] = Energy['Year'].astype(int)
@@ -67,9 +75,4 @@ plt.title('Energy Generation in Ireland since 1990')
 plt.legend()
 plt.show()
 
-#if
-x = Energy['Year'].min()
-y = Energy['Year'].max()
-if x<=y:
-    z = x+1
-    print('The current value of "z" is',z)
+
