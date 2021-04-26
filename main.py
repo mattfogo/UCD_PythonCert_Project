@@ -9,7 +9,10 @@ from datetime import datetime
 #import the datasets
 GWh = pd.read_csv("Historic GWh by Fuel.csv")
 GWh['Primary Energy'] = GWh['Primary Energy'].astype(int)
-print(GWh)
+
+
+#introducing the data
+print(GWh.describe())
 
 #checking for Null values
 print(GWh.isna().any())
@@ -55,11 +58,12 @@ Energy['Year'] = Energy['Year'].astype(int)
 Years = Energy["Year"]
 Fuel = Energy['Primary Energy_Renewables']
 
-plt.scatter(Years, Energy['Primary Energy_Renewables'],color = 'green')
-plt.scatter(Years, Energy['Primary Energy_Elec'],color = 'blue')
-plt.scatter(Years, Energy['Primary Energy_Coal'],color = 'black')
+plt.scatter(Years, Energy['Primary Energy_Renewables'],color = 'green', label= 'Renewable Energy')
+plt.scatter(Years, Energy['Primary Energy_NatGas'],color = 'red', label='Gas')
+plt.scatter(Years, Energy['Primary Energy_Coal'],color = 'black', label = 'Coal')
 plt.xlabel('Years')
 plt.ylabel('GWh')
 plt.title('Energy Generation in Ireland since 1990')
+plt.legend()
 plt.show()
 
