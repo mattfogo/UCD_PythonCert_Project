@@ -67,3 +67,9 @@ plt.title('Energy Generation in Ireland since 1990')
 plt.legend()
 plt.show()
 
+#if
+x = Energy['Year'].min()
+y = Energy['Year'].max()
+if x<=y:
+    z = x+1
+    print('The current value of "z" is',z)
