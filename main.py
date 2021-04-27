@@ -9,7 +9,7 @@ from datetime import datetime
 #import the datasets
 GWh = pd.read_csv("Historic GWh by Fuel.csv")
 GWh['Primary Energy'] = GWh['Primary Energy'].astype(int)
-
+GWh['Year'] = GWh['Year'].astype(int)
 
 #introducing the data
 print(GWh.describe())
@@ -55,14 +55,28 @@ print(Energy.columns)
 Energy ['Total Energy'] = Energy ['Primary Energy_Oil'] + Energy ['Primary Energy_Elec'] + Energy ['Primary Energy_NatGas']
 + Energy ['Primary Energy_Waste'] + Energy ['Primary Energy_Coal'] + Energy ['Primary Energy_Renewables']
 
-#if
+#demonstartion of a while loop
 x = Energy['Year'].min()
-print(x)
 y = Energy['Year'].max()
-print(x)
-if x<=y:
-    z = x+1
+z = x
+while z<=y:
+    z=z+1
     print('The current value of "z" is',z)
+
+#import additional dataset
+EUA = pd.read_csv("eua-price.csv")
+EUA['Date']= pd.to_datetime(EUA['Date'])
+EUA['Price'] = EUA['Price'].astype(int)
+
+EUA['year']= EUA['Date'].dt.year
+EUA['month']= EUA['Date'].dt.month
+EUA['day']= EUA['Date'].dt.day
+
+print(EUA.groupby('year')['Price'].sum())
+print(EUA.groupby('year')['Price'].count())
+
+EUA['EUA_Avg']= EUA.groupby('year')['Price'].sum()/EUA.groupby('year')['Price'].count()
+print(EUA['EUA_Avg'].head())
 
 #graphing my results
 Energy['Year'] = Energy['Year'].astype(int)
