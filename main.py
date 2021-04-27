@@ -72,6 +72,7 @@ EUA['year']= EUA['Date'].dt.year
 EUA['month']= EUA['Date'].dt.month
 EUA['day']= EUA['Date'].dt.day
 
+#averaging the price per year
 print(EUA.groupby('year')['Price'].sum())
 print(EUA.groupby('year')['Price'].count())
 
