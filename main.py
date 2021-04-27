@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import os
 import matplotlib.pyplot as plt
-import seaborn as sb
+import seaborn as sns
 from datetime import datetime
 
 #import the datasets
@@ -73,11 +73,15 @@ EUA['month']= EUA['Date'].dt.month
 EUA['day']= EUA['Date'].dt.day
 
 #averaging the price per year
-print(EUA.groupby('year')['Price'].sum())
-print(EUA.groupby('year')['Price'].count())
+print(EUA.groupby('year')['Price'].mean())
+EUA_Y_Av = EUA.groupby('year')['Price'].mean()
+print(EUA_Y_Av)
 
-EUA['EUA_Avg']= EUA.groupby('year')['Price'].sum()/EUA.groupby('year')['Price'].count()
-print(EUA['EUA_Avg'].head())
+Energy_Y_Av = Energy.merge(EUA_Y_Av, left_on = 'Year', right_on='year' ,how='left', suffixes=['_Energy', '_Price'])
+Energy_Y_Av.fillna(0, inplace = True)
+print(Energy_Y_Av.head())
+
+
 
 #graphing my results
 Energy['Year'] = Energy['Year'].astype(int)
