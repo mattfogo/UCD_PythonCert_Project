@@ -96,7 +96,7 @@ print(Energy_Y_Av_GHG['Cost'])
 
 # adding up the fossil fuel generation
 Energy['Fossil Fuels'] = Energy['Primary Energy_Oil'] + Energy['Primary Energy_NatGas']+ Energy['Primary Energy_Waste'] + Energy['Primary Energy_Coal'] + Energy['Primary Energy_Peat']
-print(Energy.columns)
+Energy['Dirty Fuels'] = Energy['Primary Energy_Oil'] + Energy['Primary Energy_Waste'] + Energy['Primary Energy_Coal'] + Energy['Primary Energy_Peat']
 
 
 
@@ -121,7 +121,7 @@ plt.ylabel('GWh')
 plt.title('Energy Generation in Ireland since 1990')
 plt.legend()
 
-
+# third graph
 plot3 = plt.figure(3)
 plt.scatter(Years, Energy['Primary Energy_Renewables'], color='green', label='Renewable Energy')
 plt.scatter(Years, Energy['Primary Energy_NatGas'], color='red', label='Gas')
@@ -132,7 +132,7 @@ plt.title('Energy Generation in Ireland since 1990')
 plt.legend()
 
 
-# third graph
+# fourth graph
 plot4 = plt.figure(4)
 Date = Energy_Y_Av_GHG['Date']
 CostM= Energy_Y_Av_GHG['Cost']/1000000
@@ -141,4 +141,15 @@ plt.xticks(fontsize=8,rotation=90)
 plt.xlabel('Years')
 plt.ylabel('Cost in Million €/t')
 plt.title('Cost of Generation in Ireland since 2005')
+
+#fifth graph
+plot5 = plt.figure(5)
+sns.stripplot(x=Years, y=Energy['Fossil Fuels'], data=tips, palette=['black'])
+plt.xticks(fontsize=8,rotation=90)
+plt.title('Fossil Fuel Generation in Ireland since 1990')
+
+plot6 = plt.figure(6)
+sns.stripplot(x=Years, y=Energy['Dirty Fuels'], data=tips, palette=['black'])
+plt.xticks(fontsize=8,rotation=90)
+plt.title('Fossil Fuel Generation (less Gas) in Ireland since 1990')
 plt.show()
